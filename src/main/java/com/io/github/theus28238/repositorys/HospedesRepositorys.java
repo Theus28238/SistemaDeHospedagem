@@ -16,4 +16,5 @@ public interface HospedesRepositorys extends JpaRepository<Hospedes,UUID> {
 
     @Transactional
     void deleteByCpf(String cpf);
+
 }
