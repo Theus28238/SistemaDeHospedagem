@@ -20,7 +20,16 @@ public class ControllerHospedes {
 
     @DeleteMapping("delete-guest")
     public void deletarHospede(@RequestBody Hospedes hospedes){
-        serviceHospedagem.removerHospode(hospedes);
+        serviceHospedagem.removerHospede(hospedes);
     }
 
+    @PatchMapping("update-guest")
+    public void atualizarHospede(@RequestBody Hospedes hospedes){
+        serviceHospedagem.atualizarHospedePorCpf(hospedes.getCpf(), hospedes);
+    }
+
+    @GetMapping("search-guest/{cpf}")
+    public Hospedes pesquisandoPorNome(@PathVariable("cpf") String cpf){
+        return serviceHospedagem.pesquisandoHospede(cpf);
+    }
 }
