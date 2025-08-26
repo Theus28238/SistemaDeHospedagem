@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: Hospedagem
+  datasource:
+    url: jdbc:postgresql://ep-divine-star-ac3bab0u-pooler.sa-east-1.aws.neon.tech:5432/hospedagemdb_
+    username: neondb_owner
+    password: npg_ERb5Gtmzn6Dv
+    driver-class-name: org.postgresql.Driver
