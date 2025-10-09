@@ -1,9 +1,7 @@
-package com.io.github.theus28238.entitysHospedes;
+package com.io.github.theus28238.Entity;
 
 
-import com.io.github.theus28238.EntityReserva.ReservasEntity;
 import jakarta.persistence.*;
-import jdk.jfr.Name;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;

@@ -1,8 +1,8 @@
-package com.io.github.theus28238.servicesHospedes;
+package com.io.github.theus28238.Services;
 
 
-import com.io.github.theus28238.entitysHospedes.Hospedes;
-import com.io.github.theus28238.repositorys.HospedesRepositorys;
+import com.io.github.theus28238.Entity.Hospedes;
+import com.io.github.theus28238.Repository.HospedesRepositorys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

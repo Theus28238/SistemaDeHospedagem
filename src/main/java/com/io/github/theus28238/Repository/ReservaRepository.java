@@ -1,6 +1,6 @@
 package com.io.github.theus28238.Repository;
 
-import com.io.github.theus28238.EntityReserva.ReservasEntity;
+import com.io.github.theus28238.Entity.ReservasEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

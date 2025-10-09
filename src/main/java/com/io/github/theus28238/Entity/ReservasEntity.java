@@ -1,6 +1,5 @@
-package com.io.github.theus28238.EntityReserva;
+package com.io.github.theus28238.Entity;
 
-import com.io.github.theus28238.entitysHospedes.Hospedes;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,6 +23,6 @@ public class ReservasEntity {
     private LocalDateTime checkout;
 
     @ManyToOne
-    @JoinColumn(name = "id_hospedes", nullable = false)
+    @JoinColumn(name = "idhospedes", nullable = false)
     private Hospedes hospedes;
 }
