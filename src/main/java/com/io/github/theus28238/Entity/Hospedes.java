@@ -6,7 +6,10 @@ import jakarta.persistence.*;
 import jdk.jfr.Name;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,7 +29,8 @@ public class Hospedes   {
 
     private String telefone;
 
-    @OneToOne(mappedBy = "hospedes")
-    private ReservasEntity reservasEntity;
+    @OneToMany(mappedBy = "hospedes")
+    @Cascade(CascadeType.ALL)
+    private List<ReservasEntity> reservasEntity;
 
 }

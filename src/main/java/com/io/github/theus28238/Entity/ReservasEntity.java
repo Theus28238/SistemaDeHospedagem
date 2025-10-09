@@ -23,7 +23,7 @@ public class ReservasEntity {
     private LocalDateTime checkin;
     private LocalDateTime checkout;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_hospedes", nullable = false)
     private Hospedes hospedes;
 }
