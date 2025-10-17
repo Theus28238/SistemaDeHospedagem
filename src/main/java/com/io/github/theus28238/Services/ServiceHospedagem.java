@@ -6,6 +6,7 @@ import com.io.github.theus28238.Repository.HospedesRepositorys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,5 +46,9 @@ public class ServiceHospedagem {
     public Hospedes pesquisandoHospede(String cpf){
         return  hospedesRepositorys.findByCpf(cpf).orElse(null);
 
+    }
+
+    public List<Hospedes> listaHospede(){
+        return hospedesRepositorys.findAllByOrderByNomeAsc();
     }
 }

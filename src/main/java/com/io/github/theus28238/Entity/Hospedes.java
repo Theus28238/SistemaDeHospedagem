@@ -21,6 +21,7 @@ public class Hospedes   {
     @Column(name = "idhospedes")
     private UUID idHospedes;
 
+
     private String nome;
 
     private String cpf;

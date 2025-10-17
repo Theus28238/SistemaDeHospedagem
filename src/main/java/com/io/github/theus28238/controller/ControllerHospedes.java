@@ -5,6 +5,8 @@ import com.io.github.theus28238.Services.ServiceHospedagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/new-guest")
 public class ControllerHospedes {
@@ -33,5 +35,10 @@ public class ControllerHospedes {
     @GetMapping("search-guest/{cpf}")
     public Hospedes pesquisandoPorNome(@PathVariable("cpf") String cpf){
         return serviceHospedagem.pesquisandoHospede(cpf);
+    }
+
+    @GetMapping("hospedes")
+    public List<Hospedes> listarhospedes() {
+        return serviceHospedagem.listaHospede();
     }
 }
