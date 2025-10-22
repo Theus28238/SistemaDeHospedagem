@@ -1,11 +1,13 @@
 package com.io.github.theus28238.Services;
 
 
+import com.io.github.theus28238.Entity.DTOs.HospedesDTO;
 import com.io.github.theus28238.Entity.Hospedes;
 import com.io.github.theus28238.Repository.HospedesRepositorys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +50,21 @@ public class ServiceHospedagem {
 
     }
 
-    public List<Hospedes> listaHospede(){
-        return hospedesRepositorys.findAllByOrderByNomeAsc();
+    public List<HospedesDTO> listaHospede(){
+        List<Hospedes> hospedes =  hospedesRepositorys.findAllByOrderByNomeAsc();
+
+        List<HospedesDTO> hospedesDTO = new ArrayList<>();
+
+        for (Hospedes hospede : hospedes){
+
+            HospedesDTO DTO = new HospedesDTO(
+                    hospede.getNome(),
+                    hospede.getTelefone(),
+                    hospede.getCpf()
+                    );
+            hospedesDTO.add(DTO);
+
+        }
+        return hospedesDTO;
     }
 }

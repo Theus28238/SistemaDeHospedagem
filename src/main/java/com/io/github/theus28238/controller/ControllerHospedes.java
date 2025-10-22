@@ -1,5 +1,6 @@
 package com.io.github.theus28238.controller;
 
+import com.io.github.theus28238.Entity.DTOs.HospedesDTO;
 import com.io.github.theus28238.Entity.Hospedes;
 import com.io.github.theus28238.Services.ServiceHospedagem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ControllerHospedes {
     }
 
     @GetMapping("hospedes")
-    public List<Hospedes> listarhospedes() {
+    public List<HospedesDTO> listarhospedes() {
         return serviceHospedagem.listaHospede();
     }
 }
