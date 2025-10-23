@@ -19,6 +19,10 @@ public class ReservasServices {
     private Hospedes hospedes;
 
     public ReservasEntity salvarReserva(ReservasEntity reservasEntity){
+        if (reservaRepository.reservaExiste(reservasEntity.getNumeroQuarto(), reservasEntity.getCheckin())){
+            throw new RuntimeException("Essa reserva não pode ser feita. (Datas já cadastradas)");
+        }
+
        return reservaRepository.save(reservasEntity);
     }
 
