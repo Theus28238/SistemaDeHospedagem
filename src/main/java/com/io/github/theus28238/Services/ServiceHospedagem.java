@@ -3,6 +3,8 @@ package com.io.github.theus28238.Services;
 
 import com.io.github.theus28238.Entity.DTOs.HospedesDTO;
 import com.io.github.theus28238.Entity.Hospedes;
+import com.io.github.theus28238.Execeptions.Guests.GuestAlreadyRegisterExeption;
+import com.io.github.theus28238.Execeptions.Guests.GuestNotFoundExeption;
 import com.io.github.theus28238.Repository.HospedesRepositorys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,7 @@ public class ServiceHospedagem {
     public void cadastroDeHospede(Hospedes hospedesEntity){
 
         if (hospedesRepositorys.findByCpf(hospedesEntity.getCpf()).isPresent() ){
-            throw new RuntimeException("Este hospede já está cadastrata");
+            throw new GuestAlreadyRegisterExeption();
         }
 
         hospedesRepositorys.save(hospedesEntity);
@@ -33,7 +35,7 @@ public class ServiceHospedagem {
     public void atualizarHospedePorCpf(String cpf ,Hospedes hospedes){
         Optional<Hospedes> hospedesOptional = hospedesRepositorys.findByCpf(cpf);
         if (hospedesOptional.isEmpty()){
-            throw new RuntimeException("Este não existe");
+            throw new GuestNotFoundExeption();
         }
         Hospedes hospedes1 = hospedesOptional.get();
             if (hospedes.getNome() != null){

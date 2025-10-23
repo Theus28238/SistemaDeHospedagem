@@ -4,6 +4,8 @@ import com.io.github.theus28238.Entity.DTOs.HospedesDTO;
 import com.io.github.theus28238.Entity.DTOs.ReservasDTO;
 import com.io.github.theus28238.Entity.Hospedes;
 import com.io.github.theus28238.Entity.ReservasEntity;
+import com.io.github.theus28238.Execeptions.Reservations.ReservationAlreadyRegister;
+import com.io.github.theus28238.Execeptions.Reservations.RoomNotFound;
 import com.io.github.theus28238.Repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,7 @@ public class ReservasServices {
 
     public ReservasEntity salvarReserva(ReservasEntity reservasEntity){
         if (reservaRepository.reservaExiste(reservasEntity.getNumeroQuarto(), reservasEntity.getCheckin())){
-            throw new RuntimeException("Essa reserva não pode ser feita. (Datas já cadastradas)");
+            throw new ReservationAlreadyRegister();
         }
 
        return reservaRepository.save(reservasEntity);
@@ -28,7 +30,7 @@ public class ReservasServices {
 
     public void deletarReserva(String numeroQuarto){
         if(reservaRepository.findByNumeroQuarto(numeroQuarto).isEmpty()){
-            throw new RuntimeException("Essa reserva não existe.");
+            throw new RoomNotFound();
         }
         reservaRepository.deleteByNumeroQuarto(numeroQuarto);
     }
