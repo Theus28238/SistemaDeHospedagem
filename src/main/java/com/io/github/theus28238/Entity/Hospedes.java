@@ -1,6 +1,7 @@
 package com.io.github.theus28238.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,6 @@ public class Hospedes   {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "idhospedes")
     private UUID idHospedes;
-
 
     private String nome;
 

@@ -24,14 +24,17 @@ public class ControllerHospedes {
         serviceHospedagem.cadastroDeHospede(hospedesEntity);
     }
 
-    @DeleteMapping("delete-guest")
-    public void deletarHospede(@RequestBody Hospedes hospedes){
-        serviceHospedagem.removerHospede(hospedes);
+    @DeleteMapping("delete-guest/{cpf}")
+    public void deletarHospede( @PathVariable String cpf){
+        serviceHospedagem.removerHospede(cpf);
     }
 
     @PatchMapping("update-guest")
     public void atualizarHospede(@RequestBody Hospedes hospedes){
-        serviceHospedagem.atualizarHospedePorCpf(hospedes.getCpf(), hospedes);
+        System.out.println("CPF recebido: " + hospedes.getCpf());
+        System.out.println("Nome recebido: " + hospedes.getNome());
+        System.out.println("Telefone recebido: " + hospedes.getTelefone());
+        serviceHospedagem.atualizarHospedePorCpf(hospedes);
     }
 
     @GetMapping("search-guest/{cpf}")

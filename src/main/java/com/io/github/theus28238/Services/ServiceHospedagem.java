@@ -28,12 +28,12 @@ public class ServiceHospedagem {
         hospedesRepositorys.save(hospedesEntity);
     }
 
-    public void removerHospede(Hospedes hospedes){
-        hospedesRepositorys.deleteByCpf(hospedes.getCpf());
+    public void removerHospede( String cpf){
+        hospedesRepositorys.deleteByCpf(cpf);
     }
 
-    public void atualizarHospedePorCpf(String cpf ,Hospedes hospedes){
-        Optional<Hospedes> hospedesOptional = hospedesRepositorys.findByCpf(cpf);
+    public void atualizarHospedePorCpf(Hospedes hospedes){
+        Optional<Hospedes> hospedesOptional = hospedesRepositorys.findByCpf(hospedes.getCpf());
         if (hospedesOptional.isEmpty()){
             throw new GuestNotFoundExeption();
         }
