@@ -18,7 +18,7 @@ public class ReservasEntity {
     private UUID id;
 
     @Column(name = "numerodepessoas")
-    private int numeroDePessoas;
+    private Integer numeroDePessoas;
     private LocalDate checkin;
     private LocalDate checkout;
 

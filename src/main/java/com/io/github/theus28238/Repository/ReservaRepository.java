@@ -24,10 +24,19 @@ public interface ReservaRepository extends JpaRepository<ReservasEntity, UUID> {
     List<ReservasEntity> findAllByOrderByCheckinDesc();
 
 
-    @Query("SELECT COUNT(r) > 0 FROM ReservasEntity r " +
-            "WHERE r.quarto.numeroQuarto = :numeroQuarto " +
-            "AND (:data BETWEEN r.checkin AND r.checkout)")
+    @Query("""
+       SELECT COUNT(r) > 0
+       FROM ReservasEntity r
+       WHERE r.quarto.numeroQuarto = :numeroQuarto
+       AND (
+            (:checkin BETWEEN r.checkin AND r.checkout)
+            OR (:checkout BETWEEN r.checkin AND r.checkout)
+            OR (r.checkin BETWEEN :checkin AND :checkout)
+       )
+       """)
     boolean reservaExiste(
-           @Param("numeroQuarto") Integer numeroQuarto,
-           @Param("data") LocalDate checkin);
+            @Param("numeroQuarto") Integer numeroQuarto,
+            @Param("checkin") LocalDate checkin,
+            @Param("checkout") LocalDate checkout
+    );
 }

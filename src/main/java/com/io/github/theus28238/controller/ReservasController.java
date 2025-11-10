@@ -20,8 +20,8 @@ public class ReservasController {
     private ReservasEntity reservasEntity;
 
     @PostMapping("saving-reservation")
-    public ReservasEntity salvingReservation(@RequestBody ReservasEntity reservasEntity){
-        return reservasServices.salvarReserva(reservasEntity);
+    public void salvingReservation(@RequestBody ReservasDTO reservasDTO){
+        reservasServices.salvarReserva(reservasDTO);
     }
 
     @DeleteMapping("/deleting-reservation/{numeroQuarto}")

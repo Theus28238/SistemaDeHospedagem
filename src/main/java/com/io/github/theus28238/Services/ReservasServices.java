@@ -3,9 +3,13 @@ package com.io.github.theus28238.Services;
 import com.io.github.theus28238.Entity.DTOs.HospedesDTO;
 import com.io.github.theus28238.Entity.DTOs.QuartosDTO;
 import com.io.github.theus28238.Entity.DTOs.ReservasDTO;
+import com.io.github.theus28238.Entity.Hospedes;
 import com.io.github.theus28238.Entity.ReservasEntity;
+import com.io.github.theus28238.Execeptions.Guests.GuestNotFoundExeption;
 import com.io.github.theus28238.Execeptions.Reservations.ReservationAlreadyRegister;
 import com.io.github.theus28238.Execeptions.quartos.RoomNotFound;
+import com.io.github.theus28238.Repository.HospedesRepositorys;
+import com.io.github.theus28238.Repository.QuartoRepository;
 import com.io.github.theus28238.Repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +22,39 @@ public class ReservasServices {
     @Autowired
     private ReservaRepository reservaRepository;
 
+    @Autowired
+    private HospedesRepositorys  hospedesRepositorys;
 
-    public ReservasEntity salvarReserva(ReservasEntity reservasEntity){
-        if (reservaRepository.reservaExiste(reservasEntity.getQuarto().getNumeroQuarto(),reservasEntity.getCheckin())){
+    @Autowired
+    private QuartoRepository  quartoRepository;
+
+
+    public void salvarReserva(ReservasDTO reservasDTO){
+
+        var hospedes = hospedesRepositorys.findByCpf(reservasDTO.getHospede().getCpf())
+                .orElseThrow(GuestNotFoundExeption::new);
+
+        var quartos = quartoRepository.findByNumeroQuarto(reservasDTO.getQuartos().getNumeroQuarto())
+                .orElseThrow(RoomNotFound::new);
+
+        if (reservaRepository.reservaExiste(reservasDTO.getQuartos()
+                .getNumeroQuarto(),reservasDTO
+                .getCheckin(), reservasDTO.getCheckout())){
             throw new ReservationAlreadyRegister();
         }
 
-       return reservaRepository.save(reservasEntity);
+        if (!quartos.getAtivo()){
+            throw new RoomNotFound();
+        }
+
+        ReservasEntity reservasEntity = new ReservasEntity();
+        reservasEntity.setHospedes(hospedes);
+        reservasEntity.setQuarto(quartos);
+        reservasEntity.setNumeroDePessoas(reservasDTO.getNumeroDePessoas());
+        reservasEntity.setCheckin(reservasDTO.getCheckin());
+        reservasEntity.setCheckout(reservasDTO.getCheckout());
+
+       reservaRepository.save(reservasEntity);
     }
 
     public void deletarReserva(ReservasEntity reservasEntity){

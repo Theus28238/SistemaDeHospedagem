@@ -20,16 +20,15 @@ public class QuartosServices {
     private QuartoRepository quartoRepository;
 
 
-    public Quartos newQuarto(Quartos quartos){
+    public void newQuarto(Quartos quartos){
 
         if (quartoRepository.findByNumeroQuarto(quartos.getNumeroQuarto()).isPresent()){
             throw new RoomAlreadyRegisteredException();
         }
         quartos = quartoRepository.save(quartos);
-        return quartos;
     }
 
-    public void deleteQuartos(Integer numeroQuarto){
+    public void desableQuartos(Integer numeroQuarto){
 
          var optional = quartoRepository.findByNumeroQuarto(numeroQuarto);
 
@@ -39,25 +38,9 @@ public class QuartosServices {
 
         Quartos quartos = optional.get();
         quartos.setAtivo(false);
-        quartoRepository.deleteByNumeroQuarto(numeroQuarto);
+        quartoRepository.save(quartos);
     }
 
-    public void updateQuartos(Quartos quartos, Integer numero_quarto){
-        Optional<Quartos> optional = quartoRepository.findByNumeroQuarto(numero_quarto);
-        if (optional.isEmpty()){
-            throw new RuntimeException();
-        }
-
-        Quartos quartos1 = optional.get();
-        if (quartos.getNumeroQuarto() != null){
-            quartos1.setNumeroQuarto(quartos.getNumeroQuarto());
-        }
-        if (quartos.getNumeroQuarto() != null){
-            quartos1.setNumeroQuarto(quartos.getNumeroQuarto());
-        }
-        quartoRepository.save(quartos1);
-
-    }
 
 
     public List<QuartosDTOList> listaQuarto(){
