@@ -29,6 +29,9 @@ public class ServiceHospedagem {
     }
 
     public void removerHospede( String cpf){
+        if (hospedesRepositorys.findByCpf(cpf).isEmpty() ){
+            throw new GuestNotFoundExeption();
+        }
         hospedesRepositorys.deleteByCpf(cpf);
     }
 
@@ -48,6 +51,9 @@ public class ServiceHospedagem {
     }
 
     public Hospedes pesquisandoHospede(String cpf){
+        if (hospedesRepositorys.findByCpf(cpf).isEmpty() ){
+            throw new GuestNotFoundExeption();
+        }
         return  hospedesRepositorys.findByCpf(cpf).orElse(null);
 
     }

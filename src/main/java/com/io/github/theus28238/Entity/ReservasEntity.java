@@ -17,9 +17,6 @@ public class ReservasEntity {
     @Column(name = "codigo")
     private UUID id;
 
-    @Column(name = "numeroquarto")
-    private String numeroQuarto;
-    private String acomodacao;
     @Column(name = "numerodepessoas")
     private int numeroDePessoas;
     private LocalDate checkin;
@@ -28,4 +25,8 @@ public class ReservasEntity {
     @ManyToOne
     @JoinColumn(name = "idhospedes", nullable = false)
     private Hospedes hospedes;
+
+    @ManyToOne
+    @JoinColumn(name = "id_quarto", nullable = false)
+    private Quartos quarto;
 }

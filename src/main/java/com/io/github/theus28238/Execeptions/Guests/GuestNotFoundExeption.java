@@ -5,7 +5,4 @@ public class GuestNotFoundExeption extends RuntimeException {
         super("Guest not found");
     }
 
-    public GuestNotFoundExeption(String message) {
-        super(message);
-    }
 }

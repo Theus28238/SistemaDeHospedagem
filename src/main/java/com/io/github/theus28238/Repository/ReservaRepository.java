@@ -16,18 +16,18 @@ import java.util.UUID;
 @Repository
 public interface ReservaRepository extends JpaRepository<ReservasEntity, UUID> {
 
-    Optional<ReservasEntity> findByNumeroQuarto(String numeroQuarto );
+    Optional<ReservasEntity> findByQuarto_NumeroQuarto(Integer numeroQuarto);
 
     @Transactional
-    void deleteByNumeroQuarto(String numeroQuarto);
+    void deleteByQuarto_NumeroQuarto(Integer numeroQuarto);
 
     List<ReservasEntity> findAllByOrderByCheckinDesc();
 
 
     @Query("SELECT COUNT(r) > 0 FROM ReservasEntity r " +
-            "WHERE r.numeroQuarto = :numeroQuarto " +
+            "WHERE r.quarto.numeroQuarto = :numeroQuarto " +
             "AND (:data BETWEEN r.checkin AND r.checkout)")
     boolean reservaExiste(
-           @Param("numeroQuarto") String numeroQuarto,
+           @Param("numeroQuarto") Integer numeroQuarto,
            @Param("data") LocalDate checkin);
 }

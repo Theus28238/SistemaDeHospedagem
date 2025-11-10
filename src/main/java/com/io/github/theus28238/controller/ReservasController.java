@@ -16,14 +16,17 @@ public class ReservasController {
     @Autowired
     private ReservasServices reservasServices;
 
+
+    private ReservasEntity reservasEntity;
+
     @PostMapping("saving-reservation")
     public ReservasEntity salvingReservation(@RequestBody ReservasEntity reservasEntity){
         return reservasServices.salvarReserva(reservasEntity);
     }
 
     @DeleteMapping("/deleting-reservation/{numeroQuarto}")
-    public void deleting(@PathVariable("numeroQuarto") String numeroQuarto){
-        reservasServices.deletarReserva(numeroQuarto);
+    public void deleting(@PathVariable("numeroQuarto") ReservasEntity reservasEntity ){
+        reservasServices.deletarReserva(reservasEntity);
     }
 
     @GetMapping("/reservas-recentes")

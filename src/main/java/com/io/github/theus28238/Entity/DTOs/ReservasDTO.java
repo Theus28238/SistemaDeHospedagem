@@ -11,10 +11,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservasDTO {
-    private String numeroQuarto;
-    private String acomodacao;
     private int numeroDePessoas;
     private LocalDate checkin;
     private LocalDate checkout;
     private HospedesDTO hospede;
+    private QuartosDTO quartos;
 }
