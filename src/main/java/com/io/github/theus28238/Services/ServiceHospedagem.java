@@ -67,8 +67,8 @@ public class ServiceHospedagem {
 
             HospedesDTO DTO = new HospedesDTO(
                     hospede.getNome(),
-                    hospede.getTelefone(),
-                    hospede.getCpf()
+                    hospede.getCpf(),
+                    hospede.getTelefone()
                     );
             hospedesDTO.add(DTO);
 
