@@ -3,7 +3,6 @@ package com.io.github.theus28238.Services;
 import com.io.github.theus28238.Entity.DTOs.HospedesDTO;
 import com.io.github.theus28238.Entity.DTOs.QuartosDTO;
 import com.io.github.theus28238.Entity.DTOs.ReservasDTO;
-import com.io.github.theus28238.Entity.Hospedes;
 import com.io.github.theus28238.Entity.ReservasEntity;
 import com.io.github.theus28238.Execeptions.Guests.GuestNotFoundExeption;
 import com.io.github.theus28238.Execeptions.Reservations.ReservationAlreadyRegister;
@@ -11,7 +10,6 @@ import com.io.github.theus28238.Execeptions.quartos.RoomNotFound;
 import com.io.github.theus28238.Repository.HospedesRepositorys;
 import com.io.github.theus28238.Repository.QuartoRepository;
 import com.io.github.theus28238.Repository.ReservaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,14 +17,17 @@ import java.util.List;
 
 @Service
 public class ReservasServices {
-    @Autowired
-    private ReservaRepository reservaRepository;
+    private final ReservaRepository reservaRepository;
 
-    @Autowired
-    private HospedesRepositorys  hospedesRepositorys;
+    private final HospedesRepositorys  hospedesRepositorys;
 
-    @Autowired
-    private QuartoRepository  quartoRepository;
+    private final QuartoRepository  quartoRepository;
+
+    public ReservasServices(ReservaRepository reservaRepository, HospedesRepositorys hospedesRepositorys, QuartoRepository quartoRepository) {
+        this.reservaRepository = reservaRepository;
+        this.hospedesRepositorys = hospedesRepositorys;
+        this.quartoRepository = quartoRepository;
+    }
 
 
     public void salvarReserva(ReservasDTO reservasDTO){

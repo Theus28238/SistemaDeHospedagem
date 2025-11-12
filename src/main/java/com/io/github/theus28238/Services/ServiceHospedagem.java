@@ -16,8 +16,12 @@ import java.util.Optional;
 @Service
 public class ServiceHospedagem {
 
-    @Autowired
-    HospedesRepositorys hospedesRepositorys;
+
+    final HospedesRepositorys hospedesRepositorys;
+
+    public ServiceHospedagem(HospedesRepositorys hospedesRepositorys) {
+        this.hospedesRepositorys = hospedesRepositorys;
+    }
 
     public void cadastroDeHospede(Hospedes hospedesEntity){
 

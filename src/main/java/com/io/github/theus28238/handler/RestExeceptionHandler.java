@@ -3,8 +3,11 @@ package com.io.github.theus28238.handler;
 import com.io.github.theus28238.Execeptions.Guests.GuestAlreadyRegisterExeption;
 import com.io.github.theus28238.Execeptions.Guests.GuestNotFoundExeption;
 import com.io.github.theus28238.Execeptions.Reservations.ReservationAlreadyRegister;
+import com.io.github.theus28238.Execeptions.Reservations.ReservationNotFoundExeception;
+import com.io.github.theus28238.Execeptions.pagamentos.AlreadyPaidExeception;
 import com.io.github.theus28238.Execeptions.quartos.RoomNotFound;
 import com.io.github.theus28238.Execeptions.quartos.RoomAlreadyRegisteredException;
+import org.springframework.boot.autoconfigure.batch.BatchTaskExecutor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -51,6 +54,15 @@ public class RestExeceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(threatMessage);
     }
 
+    @ResponseBody
+    @ExceptionHandler(ReservationNotFoundExeception.class)
+    public ResponseEntity<RestErrorMessage> reservationNotFound(ReservationNotFoundExeception exeption){
+        RestErrorMessage threatMessage = new RestErrorMessage(
+                LocalDateTime.now(), HttpStatus.NOT_FOUND,exeption.getMessage(), "This reservation could not be found"
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(threatMessage);
+    }
+
 
     // TRATAMENTO DE ERRO DE QUARTOS
     @ResponseBody
@@ -62,6 +74,19 @@ public class RestExeceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 "It is not possible to register 2 rooms with the same number");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(threatMessage);
+    }
+
+    // TRATAMENTO DE ERRO DE PAGAMENTOS
+    @ResponseBody
+    @BatchTaskExecutor(AlreadyPaidExeception.class)
+    public ResponseEntity<RestErrorMessage> AlreadyPaid(AlreadyPaidExeception exeption ){
+        RestErrorMessage threatMessage = new RestErrorMessage(
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT,
+                exeption.getMessage(),
+                "Already paid the reservation"
+        );
+        return  ResponseEntity.status(HttpStatus.CONFLICT).body(threatMessage);
     }
 
 

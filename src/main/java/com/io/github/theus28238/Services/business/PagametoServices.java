@@ -1,0 +1,52 @@
+package com.io.github.theus28238.Services.business;
+
+import com.io.github.theus28238.Entity.DTOs.PagamentoDTO;
+import com.io.github.theus28238.Entity.business.Pagamento;
+import com.io.github.theus28238.Execeptions.Reservations.ReservationNotFoundExeception;
+import com.io.github.theus28238.Execeptions.pagamentos.AlreadyPaidExeception;
+import com.io.github.theus28238.Repository.PagamentoRepository;
+import com.io.github.theus28238.Repository.ReservaRepository;
+import org.springframework.stereotype.Service;
+
+import java.rmi.AlreadyBoundException;
+import java.util.List;
+
+@Service
+public class PagametoServices {
+
+
+
+
+    private final ReservaRepository reservaRepository;
+    private final PagamentoRepository pagamentoRepository;
+    public PagametoServices(ReservaRepository reservaRepository1, PagamentoRepository pagamentoReservation, PagamentoRepository pagamentoRepository) {
+        this.reservaRepository = reservaRepository1;
+        this.pagamentoRepository = pagamentoRepository;
+    }
+
+    public void atualizarStatusPagamento(PagamentoDTO pagamentoDTO) {
+
+        var reserva = reservaRepository.findByHospedes_CpfAndQuarto_NumeroQuartoAndCheckin(
+                        pagamentoDTO.getReservas().getHospedes().getCpf(),
+                        pagamentoDTO.getReservas().getQuarto().getNumeroQuarto(),
+                        pagamentoDTO.getReservas().getCheckin())
+                        .orElseThrow(ReservationNotFoundExeception::new);
+
+        var pagamentoExiste = pagamentoRepository.findByReservas_Id(reserva.getId());
+
+        if (pagamentoExiste.isPresent() && Boolean.TRUE.equals(pagamentoExiste.get().getStatusPagamento())){
+             throw new AlreadyPaidExeception();
+        }
+        Pagamento pagamento = new Pagamento();
+
+        pagamento.setReservas(reserva);
+        pagamento.setMetodoPagamento(pagamentoDTO.getMetodoPagamento());
+        pagamento.setStatusPagamento(pagamentoDTO.getStatusPagamento());
+        pagamento.setValor(pagamentoDTO.getValor());
+
+        pagamentoRepository.save(pagamento);
+    }
+
+
+
+}

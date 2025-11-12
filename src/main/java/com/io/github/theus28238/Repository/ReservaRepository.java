@@ -39,4 +39,6 @@ public interface ReservaRepository extends JpaRepository<ReservasEntity, UUID> {
             @Param("checkin") LocalDate checkin,
             @Param("checkout") LocalDate checkout
     );
+
+    Optional<ReservasEntity> findByHospedes_CpfAndQuarto_NumeroQuartoAndCheckin(String hospedesCpf, Integer quartoNumeroQuarto, LocalDate checkin);
 }
