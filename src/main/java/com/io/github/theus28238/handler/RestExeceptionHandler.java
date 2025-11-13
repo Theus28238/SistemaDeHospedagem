@@ -5,6 +5,7 @@ import com.io.github.theus28238.Execeptions.Guests.GuestNotFoundExeption;
 import com.io.github.theus28238.Execeptions.Reservations.ReservationAlreadyRegister;
 import com.io.github.theus28238.Execeptions.Reservations.ReservationNotFoundExeception;
 import com.io.github.theus28238.Execeptions.pagamentos.AlreadyPaidExeception;
+import com.io.github.theus28238.Execeptions.pagamentos.PaidNotFoundExeception;
 import com.io.github.theus28238.Execeptions.quartos.RoomNotFound;
 import com.io.github.theus28238.Execeptions.quartos.RoomAlreadyRegisteredException;
 import org.springframework.boot.autoconfigure.batch.BatchTaskExecutor;
@@ -78,7 +79,7 @@ public class RestExeceptionHandler extends ResponseEntityExceptionHandler {
 
     // TRATAMENTO DE ERRO DE PAGAMENTOS
     @ResponseBody
-    @BatchTaskExecutor(AlreadyPaidExeception.class)
+    @ExceptionHandler(AlreadyPaidExeception.class)
     public ResponseEntity<RestErrorMessage> AlreadyPaid(AlreadyPaidExeception exeption ){
         RestErrorMessage threatMessage = new RestErrorMessage(
                 LocalDateTime.now(),
@@ -89,5 +90,16 @@ public class RestExeceptionHandler extends ResponseEntityExceptionHandler {
         return  ResponseEntity.status(HttpStatus.CONFLICT).body(threatMessage);
     }
 
+
+    @ResponseBody
+    @ExceptionHandler(PaidNotFoundExeception.class)
+    public ResponseEntity<RestErrorMessage> PaidNotFound(PaidNotFoundExeception exeception){
+        RestErrorMessage threatMessage = new RestErrorMessage(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND,
+                exeception.getMessage(),"This paid could not be found"
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(threatMessage);
+    }
 
 }

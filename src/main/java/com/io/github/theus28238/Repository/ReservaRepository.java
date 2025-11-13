@@ -21,7 +21,11 @@ public interface ReservaRepository extends JpaRepository<ReservasEntity, UUID> {
     @Transactional
     void deleteByQuarto_NumeroQuarto(Integer numeroQuarto);
 
-    List<ReservasEntity> findAllByOrderByCheckinDesc();
+    @Query("SELECT r FROM ReservasEntity" +
+            " r WHERE MONTH(r.checkin) = MONTH(CURRENT_DATE) AND YEAR(r.checkin) = YEAR(CURRENT_DATE)" +
+            " ORDER BY r.checkin DESC")
+    List<ReservasEntity> findReservasDoMes();
+
 
 
     @Query("""
@@ -41,4 +45,8 @@ public interface ReservaRepository extends JpaRepository<ReservasEntity, UUID> {
     );
 
     Optional<ReservasEntity> findByHospedes_CpfAndQuarto_NumeroQuartoAndCheckin(String hospedesCpf, Integer quartoNumeroQuarto, LocalDate checkin);
+
+    @Query("select r from ReservasEntity r where r.statusPagamento = false")
+    List<ReservasEntity> findReservaNaoPaga();
+
 }

@@ -1,7 +1,6 @@
 package com.io.github.theus28238.controller;
 
-import com.io.github.theus28238.Entity.DTOs.QuartosDTO;
-import com.io.github.theus28238.Entity.DTOs.QuartosDTOList;
+import com.io.github.theus28238.Entity.DTOs.list.QuartosDTOList;
 import com.io.github.theus28238.Entity.Quartos;
 import com.io.github.theus28238.Services.QuartosServices;
 import org.springframework.beans.factory.annotation.Autowired;

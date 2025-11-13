@@ -4,12 +4,10 @@ import com.io.github.theus28238.Entity.DTOs.PagamentoDTO;
 import com.io.github.theus28238.Entity.business.Pagamento;
 import com.io.github.theus28238.Execeptions.Reservations.ReservationNotFoundExeception;
 import com.io.github.theus28238.Execeptions.pagamentos.AlreadyPaidExeception;
+import com.io.github.theus28238.Execeptions.pagamentos.PaidNotFoundExeception;
 import com.io.github.theus28238.Repository.PagamentoRepository;
 import com.io.github.theus28238.Repository.ReservaRepository;
 import org.springframework.stereotype.Service;
-
-import java.rmi.AlreadyBoundException;
-import java.util.List;
 
 @Service
 public class PagametoServices {
@@ -24,7 +22,7 @@ public class PagametoServices {
         this.pagamentoRepository = pagamentoRepository;
     }
 
-    public void atualizarStatusPagamento(PagamentoDTO pagamentoDTO) {
+    public void criarPagamento(PagamentoDTO pagamentoDTO) {
 
         var reserva = reservaRepository.findByHospedes_CpfAndQuarto_NumeroQuartoAndCheckin(
                         pagamentoDTO.getReservas().getHospedes().getCpf(),
@@ -34,18 +32,33 @@ public class PagametoServices {
 
         var pagamentoExiste = pagamentoRepository.findByReservas_Id(reserva.getId());
 
-        if (pagamentoExiste.isPresent() && Boolean.TRUE.equals(pagamentoExiste.get().getStatusPagamento())){
+        if (pagamentoExiste.isPresent() && Boolean.TRUE.equals(pagamentoExiste.get().getReservas().getStatusPagamento())){
              throw new AlreadyPaidExeception();
         }
         Pagamento pagamento = new Pagamento();
 
         pagamento.setReservas(reserva);
         pagamento.setMetodoPagamento(pagamentoDTO.getMetodoPagamento());
-        pagamento.setStatusPagamento(pagamentoDTO.getStatusPagamento());
+        pagamento.getReservas().setStatusPagamento(true);
+        pagamento.setData(pagamentoDTO.getData());
         pagamento.setValor(pagamentoDTO.getValor());
 
         pagamentoRepository.save(pagamento);
     }
+
+    public void deletePagamento(PagamentoDTO pagamentoDTO) {
+        if (pagamentoRepository.findById(pagamentoDTO.getIdPagamento()).isPresent()) {
+            throw new PaidNotFoundExeception();
+        }
+        var pagamento = pagamentoRepository.findById(pagamentoDTO.getIdPagamento());
+        if (pagamento.isEmpty()) {
+            throw new PaidNotFoundExeception();
+        }
+        pagamento.get().getReservas().setStatusPagamento(false);
+
+        pagamentoRepository.deleteById(pagamentoDTO.getIdPagamento());
+    }
+
 
 
 

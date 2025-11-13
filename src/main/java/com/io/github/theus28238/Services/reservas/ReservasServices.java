@@ -1,4 +1,4 @@
-package com.io.github.theus28238.Services;
+package com.io.github.theus28238.Services.reservas;
 
 import com.io.github.theus28238.Entity.DTOs.HospedesDTO;
 import com.io.github.theus28238.Entity.DTOs.QuartosDTO;
@@ -66,7 +66,7 @@ public class ReservasServices {
     }
 
     public List<ReservasDTO> reservasRecentes(){
-        List<ReservasEntity> reservasEntity = reservaRepository.findAllByOrderByCheckinDesc();
+        List<ReservasEntity> reservasEntity = reservaRepository.findReservasDoMes();
 
         List<ReservasDTO> reservasDTO = new ArrayList<>();
 

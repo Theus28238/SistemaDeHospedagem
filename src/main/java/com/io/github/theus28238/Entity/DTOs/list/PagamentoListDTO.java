@@ -1,10 +1,9 @@
-package com.io.github.theus28238.Entity.DTOs;
+package com.io.github.theus28238.Entity.DTOs.list;
 
 import com.io.github.theus28238.Entity.ReservasEntity;
 import com.io.github.theus28238.Entity.Stats.MetodoPagamento;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,16 +11,11 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class PagamentoDTO {
-
-   private UUID idPagamento;
-
-
-
+public class PagamentoListDTO {
+    private UUID id;
     private BigDecimal valor;
     private LocalDate data;
-    private ReservasEntity reservas;
+    private ReservaListDTO reservas;
     private MetodoPagamento metodoPagamento;
 
 }

@@ -24,6 +24,9 @@ public class ReservasEntity {
     private LocalDate checkin;
     private LocalDate checkout;
 
+    @Column(nullable = false)
+    private Boolean statusPagamento = false;
+
     @ManyToOne
     @JoinColumn(name = "idhospedes", nullable = false)
     private Hospedes hospedes;

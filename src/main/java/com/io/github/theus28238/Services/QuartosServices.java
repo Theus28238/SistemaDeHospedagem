@@ -1,6 +1,6 @@
 package com.io.github.theus28238.Services;
 
-import com.io.github.theus28238.Entity.DTOs.QuartosDTOList;
+import com.io.github.theus28238.Entity.DTOs.list.QuartosDTOList;
 import com.io.github.theus28238.Entity.Quartos;
 import com.io.github.theus28238.Execeptions.quartos.RoomAlreadyRegisteredException;
 import com.io.github.theus28238.Execeptions.quartos.RoomNotFound;
@@ -51,7 +51,6 @@ public class QuartosServices {
             QuartosDTOList dto = new QuartosDTOList(
                     quarto.getNumeroQuarto(),
                     quarto.getTipoQuarto(),
-                    quarto.getValorQuarto(),
                     quarto.getAtivo()
             );
             quartosDTOList.add(dto);

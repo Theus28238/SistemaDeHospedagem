@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -24,10 +25,12 @@ public class Pagamento {
 
     private BigDecimal valor;
 
+    private LocalDate data;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MetodoPagamento metodoPagamento;
 
-    private Boolean statusPagamento;
+
 
 }

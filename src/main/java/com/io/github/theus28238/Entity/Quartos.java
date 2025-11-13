@@ -24,9 +24,6 @@ public class Quartos {
     @Column(name = "tipo_quarto")
     private String tipoQuarto;
 
-    @Column(name = "valor_quarto")
-    private BigDecimal valorQuarto;
-
     private Boolean ativo;
 
     @OneToMany
