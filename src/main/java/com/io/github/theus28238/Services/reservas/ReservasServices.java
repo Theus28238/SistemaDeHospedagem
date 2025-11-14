@@ -65,37 +65,6 @@ public class ReservasServices {
         reservaRepository.deleteByQuarto_NumeroQuarto(reservasEntity.getQuarto().getNumeroQuarto());
     }
 
-    public List<ReservasDTO> reservasRecentes(){
-        List<ReservasEntity> reservasEntity = reservaRepository.findReservasDoMes();
 
-        List<ReservasDTO> reservasDTO = new ArrayList<>();
-
-
-        for(ReservasEntity reservasEntity1 : reservasEntity){
-            HospedesDTO hospedesDTO = new HospedesDTO(
-                    reservasEntity1.getHospedes().getNome(),
-                    reservasEntity1.getHospedes().getCpf(),
-                    reservasEntity1.getHospedes().getTelefone()
-            );
-
-
-            QuartosDTO quartosDTO = new QuartosDTO(
-                    reservasEntity1.getQuarto().getNumeroQuarto()
-            );
-
-
-
-            ReservasDTO DTO = new ReservasDTO(
-                    reservasEntity1.getNumeroDePessoas(),
-                    reservasEntity1.getCheckout(),
-                    reservasEntity1.getCheckin(),
-                    hospedesDTO,
-                    quartosDTO
-            );
-
-            reservasDTO.add(DTO);
-        }
-        return reservasDTO;
-    }
 
 }

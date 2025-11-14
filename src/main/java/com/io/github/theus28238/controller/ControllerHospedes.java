@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/new-guest")
+@RequestMapping("/hospede")
 public class ControllerHospedes {
 
 
@@ -19,17 +19,17 @@ public class ControllerHospedes {
     ServiceHospedagem serviceHospedagem;
 
 
-    @PostMapping("sigin-guest")
+    @PostMapping
     public void cadastroDeHospede(@RequestBody Hospedes hospedesEntity){
         serviceHospedagem.cadastroDeHospede(hospedesEntity);
     }
 
-    @DeleteMapping("delete-guest/{cpf}")
+    @DeleteMapping("{cpf}")
     public void deletarHospede( @PathVariable String cpf){
         serviceHospedagem.removerHospede(cpf);
     }
 
-    @PatchMapping("update-guest")
+    @PatchMapping
     public void atualizarHospede(@RequestBody Hospedes hospedes){
         System.out.println("CPF recebido: " + hospedes.getCpf());
         System.out.println("Nome recebido: " + hospedes.getNome());
@@ -37,12 +37,12 @@ public class ControllerHospedes {
         serviceHospedagem.atualizarHospedePorCpf(hospedes);
     }
 
-    @GetMapping("search-guest/{cpf}")
+    @GetMapping("{cpf}")
     public Hospedes pesquisandoPorNome(@PathVariable("cpf") String cpf){
         return serviceHospedagem.pesquisandoHospede(cpf);
     }
 
-    @GetMapping("hospedes")
+    @GetMapping("hospedes-list")
     public List<HospedesDTO> listarhospedes() {
         return serviceHospedagem.listaHospede();
     }

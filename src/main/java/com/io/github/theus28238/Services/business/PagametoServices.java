@@ -9,6 +9,8 @@ import com.io.github.theus28238.Repository.PagamentoRepository;
 import com.io.github.theus28238.Repository.ReservaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class PagametoServices {
 
@@ -46,17 +48,14 @@ public class PagametoServices {
         pagamentoRepository.save(pagamento);
     }
 
-    public void deletePagamento(PagamentoDTO pagamentoDTO) {
-        if (pagamentoRepository.findById(pagamentoDTO.getIdPagamento()).isPresent()) {
-            throw new PaidNotFoundExeception();
-        }
-        var pagamento = pagamentoRepository.findById(pagamentoDTO.getIdPagamento());
+    public void deletePagamento(UUID pagamentoId) {
+        var pagamento = pagamentoRepository.findById(pagamentoId);
         if (pagamento.isEmpty()) {
             throw new PaidNotFoundExeception();
         }
         pagamento.get().getReservas().setStatusPagamento(false);
 
-        pagamentoRepository.deleteById(pagamentoDTO.getIdPagamento());
+        pagamentoRepository.deleteById(pagamentoId);
     }
 
 
