@@ -16,19 +16,21 @@ public class Pagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_pagamento")
     private UUID id;
 
 
     @ManyToOne
-    @JoinColumn(name = "codigo", nullable = false)
+    @JoinColumn(name = "reservas", nullable = false)
     private ReservasEntity reservas;
 
     private BigDecimal valor;
 
+    @Column(name = "data_pagamento")
     private LocalDate data;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "metodo_pagamento",nullable = false)
     private MetodoPagamento metodoPagamento;
 
 

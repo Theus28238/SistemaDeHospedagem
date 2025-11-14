@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("reservas")
 public class ReservasController {
 
     @Autowired

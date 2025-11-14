@@ -24,7 +24,7 @@ public class ReservasEntity {
     private LocalDate checkin;
     private LocalDate checkout;
 
-    @Column(nullable = false)
+    @Column(name = "status_pagamento", nullable = false)
     private Boolean statusPagamento = false;
 
     @ManyToOne
