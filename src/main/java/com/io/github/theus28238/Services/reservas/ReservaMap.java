@@ -67,8 +67,8 @@ public class ReservaMap {
 
             ReservasDTO DTO = new ReservasDTO(
                     reservasEntity1.getNumeroDePessoas(),
-                    reservasEntity1.getCheckout(),
                     reservasEntity1.getCheckin(),
+                    reservasEntity1.getCheckout(),
                     hospedesDTO,
                     quartosDTO
             );

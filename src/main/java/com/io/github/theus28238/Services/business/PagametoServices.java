@@ -19,7 +19,7 @@ public class PagametoServices {
 
     private final ReservaRepository reservaRepository;
     private final PagamentoRepository pagamentoRepository;
-    public PagametoServices(ReservaRepository reservaRepository1, PagamentoRepository pagamentoReservation, PagamentoRepository pagamentoRepository) {
+    public PagametoServices(ReservaRepository reservaRepository1, PagamentoRepository pagamentoRepository) {
         this.reservaRepository = reservaRepository1;
         this.pagamentoRepository = pagamentoRepository;
     }
