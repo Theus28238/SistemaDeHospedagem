@@ -28,8 +28,8 @@ public class ReservasController {
     }
 
     @DeleteMapping("/{numeroQuarto}")
-    public void deleting(@PathVariable("numeroQuarto") ReservasEntity reservasEntity ){
-        reservasServices.deletarReserva(reservasEntity);
+    public void deleting(@PathVariable("numeroQuarto") Integer numeroQuarto ){
+        reservasServices.deletarReserva(numeroQuarto);
     }
 
     @GetMapping("/reservas-recentes")

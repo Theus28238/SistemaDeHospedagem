@@ -58,11 +58,11 @@ public class ReservasServices {
        reservaRepository.save(reservasEntity);
     }
 
-    public void deletarReserva(ReservasEntity reservasEntity){
-        if(reservaRepository.findByQuarto_NumeroQuarto(reservasEntity.getQuarto().getNumeroQuarto()).isEmpty()){
+    public void deletarReserva(Integer numeroQuarto){
+        if(reservaRepository.findByQuarto_NumeroQuarto(numeroQuarto).isEmpty()){
             throw new RoomNotFound();
         }
-        reservaRepository.deleteByQuarto_NumeroQuarto(reservasEntity.getQuarto().getNumeroQuarto());
+        reservaRepository.deleteByQuarto_NumeroQuarto(numeroQuarto);
     }
 
 
