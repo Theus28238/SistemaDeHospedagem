@@ -12,7 +12,9 @@ import com.io.github.theus28238.Repository.QuartoRepository;
 import com.io.github.theus28238.Repository.ReservaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -56,13 +58,17 @@ public class ReservasServices {
         reservasEntity.setCheckout(reservasDTO.getCheckout());
 
        reservaRepository.save(reservasEntity);
+
     }
 
-    public void deletarReserva(Integer numeroQuarto){
-        if(reservaRepository.findByQuarto_NumeroQuarto(numeroQuarto).isEmpty()){
+    public void deletarReserva(Integer numeroQuarto, String cpf, LocalDate checkin){
+
+        var reserva = reservaRepository.findByHospedes_CpfAndQuarto_NumeroQuartoAndCheckin(cpf, numeroQuarto,checkin);
+
+        if(reserva.isEmpty()){
             throw new RoomNotFound();
         }
-        reservaRepository.deleteByQuarto_NumeroQuarto(numeroQuarto);
+        reservaRepository.delete(reserva.get());
     }
 
 

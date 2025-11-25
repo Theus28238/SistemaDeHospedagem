@@ -8,6 +8,7 @@ import com.io.github.theus28238.Services.reservas.ReservasServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -27,9 +28,9 @@ public class ReservasController {
         reservasServices.salvarReserva(reservasDTO);
     }
 
-    @DeleteMapping("/{numeroQuarto}")
-    public void deleting(@PathVariable("numeroQuarto") Integer numeroQuarto ){
-        reservasServices.deletarReserva(numeroQuarto);
+    @DeleteMapping("/{numeroQuarto}/{cpf}/{chekin}")
+    public void deleting(@PathVariable("numeroQuarto")Integer numeroQuarto,@PathVariable("cpf") String cpf,@PathVariable("chekin") LocalDate chekin){
+        reservasServices.deletarReserva(numeroQuarto, cpf, chekin);
     }
 
     @GetMapping("/reservas-recentes")
