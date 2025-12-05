@@ -22,6 +22,12 @@ public class PagamentoController {
 
     @PostMapping
     public void criarPagamento(@RequestBody PagamentoDTO pagamentoDTO){
+        try {
+
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         pagametoServices.criarPagamento(pagamentoDTO);
     }
 

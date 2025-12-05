@@ -18,6 +18,13 @@ public class QuartosController {
 
     @PostMapping()
     public void newQuarto(@RequestBody Quartos quarto){
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
         quartosServices.newQuarto(quarto);
     }
 

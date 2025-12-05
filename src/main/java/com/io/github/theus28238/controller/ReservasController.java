@@ -25,6 +25,13 @@ public class ReservasController {
 
     @PostMapping
     public void salvingReservation(@RequestBody ReservasDTO reservasDTO){
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
         reservasServices.salvarReserva(reservasDTO);
     }
 
